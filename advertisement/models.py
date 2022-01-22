@@ -57,7 +57,7 @@ class Advertisement(BaseModel):
     url = models.TextField(unique=True)
     title = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    remaining_days = models.CharField(max_length=32, verbose_name='remaining days', blank=True)
+    remaining_days = models.PositiveIntegerField(verbose_name='remaining days', null=True, blank=True)
     company = models.ForeignKey(Company, related_name='advertisements', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
@@ -98,4 +98,3 @@ class CrawlerConfig(BaseModel):
     source = models.PositiveSmallIntegerField(choices=SOURCE_CHOICES, default=JOBINJA)
     city = models.PositiveSmallIntegerField(choices=CITY_CHOICES, default=TEHRAN)
     url = models.TextField(unique=True)
-

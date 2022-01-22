@@ -1,3 +1,5 @@
+import re
+
 from bs4 import BeautifulSoup
 from django.db import transaction
 
@@ -6,6 +8,7 @@ from advertisement.models import CrawlerConfig, Link, Company, Advertisement, Ta
 from .config import HEADER
 from threading import Thread
 from queue import Queue
+from unidecode import unidecode
 
 
 class JobinjaLinkCrawler(BaseCrawler):
@@ -112,7 +115,7 @@ class Parser:
         if tag is not None:
             for string in tag.stripped_strings:
                 data += string
-        return data
+        return int(re.search('\\d+', unidecode(data)).group())
 
     @staticmethod
     def parse_tags(soup):
