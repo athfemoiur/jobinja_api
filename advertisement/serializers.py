@@ -1,7 +1,7 @@
 from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import ModelSerializer
 
-from advertisement.models import Company
+from advertisement.models import Company, Advertisement, TagValue
 
 
 class CompanySerializer(ModelSerializer):
@@ -11,12 +11,17 @@ class CompanySerializer(ModelSerializer):
 
 
 class TagValueSerializer(ModelSerializer):
-    fields = ('tag', 'value')
+    tag = StringRelatedField()
+
+    class Meta:
+        model = TagValue
+        fields = ('tag', 'value')
 
 
 class AdvertisementSerializer(ModelSerializer):
     company = StringRelatedField()
-    tags = TagValueSerializer(many=True)
+    tag_values = TagValueSerializer(many=True)
 
     class Meta:
-        fields = ('url', 'title', 'description', 'remaining_days', 'company', 'tags')
+        model = Advertisement
+        fields = ('url', 'title', 'description', 'remaining_days', 'company', 'tag_values')

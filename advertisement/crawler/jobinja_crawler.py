@@ -77,7 +77,7 @@ class Parser:
         data = soup.find('div', {'class': 'c-jobView__titleText'})
         if data is not None:
             data = data.string
-        return data
+        return data.strip()
 
     @staticmethod
     def parse_description(soup):
@@ -95,7 +95,7 @@ class Parser:
         if tag is not None:
             for string in tag.stripped_strings:
                 data += string
-        return data
+        return data.strip()
 
     @staticmethod
     def parse_company_desc(soup):

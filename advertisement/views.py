@@ -6,7 +6,7 @@ from advertisement.serializers import AdvertisementSerializer, CompanySerializer
 
 class AdvertisementListView(ListAPIView):
     serializer_class = AdvertisementSerializer
-    queryset = Advertisement.objects.all().prefetch_related('tags').select_related('company')
+    queryset = Advertisement.objects.all().select_related('company').prefetch_related('tag_values')
 
 
 class CompanyListView(ListAPIView):

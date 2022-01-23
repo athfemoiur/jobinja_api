@@ -32,7 +32,7 @@ class Tag(BaseModel):
 
 
 class Company(BaseModel):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
     image = models.ImageField(null=True, blank=True, upload_to='images/companies/')
 

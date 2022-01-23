@@ -97,18 +97,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# rest_framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
 # redis
 redis_pool = redis.ConnectionPool.from_url("redis://market_analyze_redis:6379", decode_responses=True)
 redis_client = redis.StrictRedis(connection_pool=redis_pool)
 
 # celery
-
 CELERY_TIMEZONE = 'Asia/Tehran'
-# CELERY_TASK_TIME_LIMIT = 5 * 60
 
-# CELERY_BEAT_SCHEDULE = {
-#     "jobinja_crawler": {
-#         "task": "advertisement.tasks.crawl_jobinja",
-#         "schedule": crontab(minute="*/5"),
-#     },
-# }
+CELERY_BEAT_SCHEDULE = {
+    "jobinja_crawler": {
+        "task": "advertisement.tasks.crawl_jobinja",
+        "schedule": crontab(hour="*/12"),
+    },
+}

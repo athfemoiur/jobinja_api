@@ -17,11 +17,12 @@ class CompanyAdmin(admin.ModelAdmin):
 class TagValueInline(admin.TabularInline):
     model = TagValue
     can_delete = False
+    extra = 0
 
 
 @admin.register(Advertisement)
 class AdvertisementAdmin(admin.ModelAdmin):
-    list_display = ('url', 'company', 'title', 'remaining_days',)
+    list_display = ('title', 'source', 'company', 'remaining_days',)
     search_fields = ('title',)
     inlines = [TagValueInline]
 
